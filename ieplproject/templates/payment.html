@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 text-center">
+        <div class="card border-0 shadow-sm p-4">
+          <h4 class="mb-2">Complete Your Payment</h4>
+          <p class="text-muted">Order #{{ order.id }}</p>
+          <h3 class="text-primary mb-4">₹{{ order.total_amount }}</h3>
+          <button id="pay-btn" class="btn btn-success btn-lg btn-block">
+            Pay with Razorpay
+          </button>
+          <p class="text-muted mt-3" style="font-size:12px">
+            Secured by Razorpay. Supports UPI, Cards, Net Banking, Wallets.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<form id="payment-form" method="POST" action="{% url 'verify_payment' %}">
+  {% csrf_token %}
+  <input type="hidden" name="razorpay_payment_id" id="payment_id">
+  <input type="hidden" name="razorpay_order_id"   value="{{ razorpay_order_id }}">
+  <input type="hidden" name="razorpay_signature"   id="signature">
+</form>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+document.getElementById('pay-btn').onclick = function() {
+  var options = {
+    key:         '{{ razorpay_key }}',
+    amount:      {{ amount }},
+    currency:    'INR',
+    name:        'IEPL Lighting',
+    description: 'Order #{{ order.id }}',
+    order_id:    '{{ razorpay_order_id }}',
+    prefill: {
+      name:  '{{ user.get_full_name }}',
+      email: '{{ user.email }}',
+    },
+    theme: { color: '#0057A8' },
+    handler: function(response) {
+      document.getElementById('payment_id').value = response.razorpay_payment_id;
+      document.getElementById('signature').value  = response.razorpay_signature;
+      document.getElementById('payment-form').submit();
+    }
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+};
+</script>
+{% endblock %}

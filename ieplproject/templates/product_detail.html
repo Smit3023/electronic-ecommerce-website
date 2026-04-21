@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-5">
+        <img src="{{ product.product_image.url }}"
+             class="img-fluid rounded" alt="{{ product.product_name }}"
+             style="width:100%; height:380px; object-fit:cover;">
+      </div>
+
+      <div class="col-md-7">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent p-0">
+            <li class="breadcrumb-item">
+              <a href="{% url 'ProductPage' %}">Products</a>
+            </li>
+            <li class="breadcrumb-item active">{{ product.product_name }}</li>
+          </ol>
+        </nav>
+
+        <span class="badge badge-warning mb-2">{{ product.get_category_display }}</span>
+        <h2 class="mb-2">{{ product.product_name }}</h2>
+        <h3 class="text-primary mb-3">&#8377;{{ product.price }}
+          <small class="text-muted" style="font-size:14px">incl. GST</small>
+        </h3>
+
+        <p class="text-muted mb-4">{{ product.description }}</p>
+
+        <!-- Specs table -->
+        {% if product.wattage or product.color_temp or product.ip_rating %}
+        <table class="table table-sm table-bordered w-auto mb-4">
+          {% if product.wattage %}
+          <tr>
+            <td><strong>Wattage</strong></td>
+            <td>{{ product.wattage }}</td>
+          </tr>
+          {% endif %}
+          {% if product.color_temp %}
+          <tr>
+            <td><strong>Color Temp</strong></td>
+            <td>{{ product.color_temp }}</td>
+          </tr>
+          {% endif %}
+          {% if product.ip_rating %}
+          <tr>
+            <td><strong>IP Rating</strong></td>
+            <td>{{ product.ip_rating }}</td>
+          </tr>
+          {% endif %}
+        </table>
+        {% endif %}
+
+        <!-- Stock + Add to cart -->
+        {% if product.stock > 0 %}
+          <p class="text-success mb-3">
+            <strong>&#10003; In Stock</strong>
+            ({{ product.stock }} available)
+          </p>
+          {% if user.is_authenticated %}
+            <a href="{% url 'add_to_cart' product.id %}"
+               class="btn btn-primary btn-lg">
+              Add to Cart
+            </a>
+          {% else %}
+            <a href="{% url 'login' %}?next={{ request.path }}"
+               class="btn btn-outline-primary btn-lg">
+              Login to Add to Cart
+            </a>
+          {% endif %}
+        {% else %}
+          <p class="text-danger"><strong>Out of Stock</strong></p>
+          <button class="btn btn-secondary btn-lg" disabled>
+            Out of Stock
+          </button>
+        {% endif %}
+
+        <a href="{% url 'ProductPage' %}" class="btn btn-outline-secondary ml-2">
+          &larr; Back to Products
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Related products -->
+    {% if related %}
+    <hr class="my-5">
+    <h5 class="mb-4">Related Products</h5>
+    <div class="row">
+      {% for p in related %}
+      <div class="col-md-3 col-6 mb-4">
+        <div class="card border-0 shadow-sm h-100">
+          <img src="{{ p.product_image.url }}"
+               class="card-img-top"
+               style="height:160px; object-fit:cover;"
+               alt="{{ p.product_name }}">
+          <div class="card-body text-center">
+            <p class="mb-1"><strong>{{ p.product_name }}</strong></p>
+            <p class="text-primary mb-2">&#8377;{{ p.price }}</p>
+            <a href="{% url 'ProductDetail' p.slug %}"
+               class="btn btn-sm btn-outline-primary">
+              View
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

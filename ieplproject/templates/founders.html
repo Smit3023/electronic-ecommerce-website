@@ -1,0 +1,32 @@
+<!-- Our Founders -->
+<section class="bg-light wt-section" id="team">
+    <div class="container">
+        <div class="row justify-content-md-center text-center mb-lg-5 mb-4 pb-lg-5">
+            <div class="col-md-12">
+                <h2 class="h1">Our Founders</h2>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            {% for founder in founders %}
+            <div class="col-lg-5 col-sm-6 mb-5 bg-dark rounded">
+                <img class="w-75 mt-3 img-fluid mx-auto d-block" src="{{founder.founder_image.url}}" alt="Founder Image">
+                <div class="wt-box-shadow-sm text-white text-center  p-4">
+                    <div class="mb-3">
+                        <small class="d-block font-style-normal text-uppercase text-primary wt-letter-spacing-xs">{{founder.founder_position}}</small>
+                        <h5 class="mb-1">{{founder.founder_name}}</h5>
+                        <p>{{founder.founder_description}}​</p>
+                    </div>
+                    <div class="team-dp">
+                        <ul>
+                            <li class="list-inline-item mx-2" data-toggle="tooltip" data-placement="top">
+                                <a class="text-primary" target="_blank" href="{{founder.founder_linkedin}}"><i class="fab fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

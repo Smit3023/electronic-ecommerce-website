@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3>Welcome, {{ request.user.username }}</h3>
+      <a href="{% url 'logout' %}" class="btn btn-outline-secondary btn-sm">Logout</a>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header"><strong>Recent Enquiries</strong></div>
+          <ul class="list-group list-group-flush">
+            {% for e in enquiries %}
+              <li class="list-group-item">
+                <strong>{{ e.first_name }} {{ e.last_name }}</strong> — {{ e.subject }}
+                <br><small class="text-muted">{{ e.email }}</small>
+              </li>
+            {% empty %}
+              <li class="list-group-item text-muted">No enquiries yet.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header"><strong>Recent Applications</strong></div>
+          <ul class="list-group list-group-flush">
+            {% for a in applications %}
+              <li class="list-group-item">
+                <strong>{{ a.first_name }} {{ a.last_name }}</strong>
+                <br><small class="text-muted">{{ a.email }}</small>
+              </li>
+            {% empty %}
+              <li class="list-group-item text-muted">No applications yet.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

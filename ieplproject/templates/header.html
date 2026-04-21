@@ -1,0 +1,125 @@
+{% load static %}
+
+<style>
+  /* Active nav link — gold color + underline indicator */
+  #mainNav .navbar-nav .nav-item.active .nav-link {
+    color: #b8a97e !important;
+    font-weight: 700;
+    position: relative;
+  }
+
+  #mainNav .navbar-nav .nav-item.active .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2.5px;
+    background: #b8a97e;
+    border-radius: 2px;
+  }
+
+  /* Cart badge */
+  #mainNav .cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-left: 3px;
+    vertical-align: middle;
+    line-height: 1;
+  }
+</style>
+
+<!-- Header -->
+<header id="top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'IndexPage' %}">
+                <img src="{% static 'images/logo_image.png' %}" alt="IEPL">
+            </a>
+            <button class="navbar-toggler" type="button"
+                    data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="ti-menu"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'IndexPage' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'IndexPage' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'AboutPage' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'AboutPage' %}">About Us</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'ProductPage' or request.resolver_match.url_name == 'ProductDetail' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'ProductPage' %}">Products</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'SolutionPage' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'SolutionPage' %}">Solutions</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'ProjectPage' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'ProjectPage' %}">Projects</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'BlogPage' or request.resolver_match.url_name == 'BlogArticle' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'BlogPage' %}">Blogs</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'ContactPage' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'ContactPage' %}">Contact Us</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'JoinPage' %}active{% endif %}">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'JoinPage' %}">Join Us</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'cart' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'cart' %}">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                        </a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'profile' %}">
+                            <i class="fa fa-user"></i> {{ user.username }}
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+
+                    {% else %}
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'register' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

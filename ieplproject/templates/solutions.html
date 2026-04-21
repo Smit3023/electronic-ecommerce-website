@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Solutions -->
+<section class="wt-section">
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0">
+                <h2 class="mb-md-2">Comprehensive Service, Solution, and Support</h2>
+            </div>
+        </div>
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col">
+                <div class="card solution-card-top">
+                    <div class="card-body">
+                        <div class="solution-card-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <p class="card-text">LED Lighting Supply and Automation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card solution-card-top">
+                    <div class="card-body">
+                        <div class="solution-card-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <p class="card-text">We are offering 72 hours of assurance for a replacement part.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card solution-card-top">
+                    <div class="card-body">
+                        <div class="solution-card-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <p class="card-text">Lighting Consultancy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card solution-card-top">
+                    <div class="card-body">
+                        <div class="solution-card-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <p class="card-text">2-Year Warranty & Free Electrician Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0">
+                {% for solution in solution_content %}
+                <p>{{solution.solution_content_1}}</p>
+                {% endfor %}
+                <br>
+                {% for solution in solution_content %}
+                <p>{{solution.solution_content_2}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0">
+                <h2 class="mb-md-2">BENEFITS OF PROFESSIONAL LIGHTING</h2>
+            </div>
+        </div>
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+          <div class="col">
+              <div class="card solution-card-bottom">
+                  <div class="card-body">
+                      <div class="solution-card-icon">
+                          <i class="fas fa-truck-loading"></i>
+                      </div>
+                      <p class="card-text">Proper Lumens package for particular area.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card solution-card-bottom">
+                  <div class="card-body">
+                      <div class="solution-card-icon">
+                          <i class="fas fa-thermometer-half"></i>
+                      </div>
+                      <p class="card-text">Appropriate usage of CCT (Correlated Color Temperature).</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card solution-card-bottom">
+                  <div class="card-body">
+                      <div class="solution-card-icon">
+                          <i class="fas fa-lightbulb"></i>
+                      </div>
+                      <p class="card-text">Using high CRI lighting products (Color Rendering Index).</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card solution-card-bottom">
+                  <div class="card-body">
+                      <div class="solution-card-icon">
+                          <i class="fas fa-battery-three-quarters"></i>
+                      </div>
+                      <p class="card-text">Power Consumption Calculation (Dimming option can be use).</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</section>
+
+{% endblock %}
+
+<!-- <i class="fas fa-truck"></i>
+<i class="fas fa-sync"></i>
+<i class="fas fa-chalkboard-teacher"></i>
+<i class="fas fa-clipboard-list"></i>
+<i class="fas fa-truck-loading"></i>
+<i class="fas fa-thermometer-half"></i>
+<i class="far fa-lightbulb"></i>
+<i class="fas fa-battery-three-quarters"></i> -->
+
+<!-- <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+      <div class="card solution-card-dark">
+        <div class="card-body">
+          <i class="fas  solution-card-icon"></i>
+          <h5 class="card-title">Card Title 1</h5>
+          <p class="card-text">Some content goes here. You can describe your service or feature.</p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<style>
+    .solution-card-dark {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+    }
+    .solution-card-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+  </style> -->

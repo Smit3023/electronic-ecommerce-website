@@ -1,0 +1,19 @@
+<!-- Our Partners -->
+<section class="wt-section">
+    <div class="container">
+        <div class="row justify-content-md-center text-center mb-lg-5 mb-4 pb-lg-5">
+            <div class="col-md-12">
+                <h2 class="h1">Our Partners</h2>
+            </div>
+        </div>
+        <div class="row text-center">
+            {% for partner in partners %}
+            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <div class="logo-image">
+                    <img src="{{partner.partner_image.url}}" alt="Partner Image">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

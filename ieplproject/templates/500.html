@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5 text-center">
+  <div class="container">
+    <h1 class="display-1">500</h1>
+    <h3>Server error</h3>
+    <p class="text-muted">Something went wrong on our end. Please try again later.</p>
+    <a href="{% url 'IndexPage' %}" class="btn btn-primary mt-3">Go Home</a>
+  </div>
+</section>
+{% endblock %}

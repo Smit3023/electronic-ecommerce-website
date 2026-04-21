@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Blogs -->
+<section class="blog_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>Blogs</h2>
+        </div>
+        <div class="row">
+            {% for blog in page_obj %}
+            <div class="col-md-6 mb-5">
+                <div class="box">
+                    <div class="img-box">
+                        <img src="{{blog.blog_image.url}}" alt="Bost Post Image">
+                        <h4 class="blog_date">
+                            <span>{{blog.blog_dateday}}<br>{{blog.blog_datemonth}}</span>
+                        </h4>
+                    </div>
+                    <div class="detail-box">
+                        <h5>{{blog.blog_title}}</h5>
+                        <p>{{blog.blog_content}}</p>
+                        <a href="{% url 'BlogArticle' blog.id %}">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% if page_obj.has_other_pages %}
+<div class="d-flex justify-content-center mt-4">
+  <nav>
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

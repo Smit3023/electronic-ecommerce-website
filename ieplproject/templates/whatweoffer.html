@@ -1,0 +1,16 @@
+<!-- What We Offer -->
+<section class="wt-section bg-light" id="about">
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-8 text-center w-md-50 mx-auto mb-0">
+                <h2 class="mb-md-2">What We Offer</h2>
+                {% for about in about_texts %}
+                <p class="lead text-muted">{{about.what_we_offer_text}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row justify-content-md-center text-center">
+            <a href="{% url 'AboutPage' %}" class="about-btn btn-dark btn-pill btn-outline-light d-flex justify-content-center align-items-center" style="text-decoration: none;">Learn More</a>
+        </div>
+    </div>
+</section>

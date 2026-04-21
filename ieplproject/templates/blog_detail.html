@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="blog-detail py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <img src="{{ blog.blog_image.url }}" class="img-fluid rounded mb-4" alt="{{ blog.blog_title }}">
+        <div class="d-flex mb-3">
+          <span class="badge badge-primary mr-2">{{ blog.blog_datemonth }}</span>
+          <span class="badge badge-secondary">{{ blog.blog_dateday }}</span>
+        </div>
+        <h1 class="mb-4">{{ blog.blog_title }}</h1>
+        <div class="blog-content">
+          {{ blog.blog_content }}
+        </div>
+        <a href="{% url 'BlogPage' %}" class="btn btn-outline-primary mt-4">&larr; Back to Blogs</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

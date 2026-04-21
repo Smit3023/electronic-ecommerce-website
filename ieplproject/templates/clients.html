@@ -1,0 +1,19 @@
+<!-- Our Clients -->
+<section class="wt-section">
+    <div class="container">
+        <div class="row justify-content-md-center text-center mb-lg-5 mb-4 pb-lg-5">
+            <div class="col-md-12">
+                <h2 class="h1">Our Clients</h2>
+            </div>
+        </div>
+        <div class="row text-center">
+            {% for client in clients %}
+            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <div class="logo-image">
+                    <img src="{{client.client_image.url}}" alt="Client Image">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

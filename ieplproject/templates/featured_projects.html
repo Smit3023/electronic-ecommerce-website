@@ -1,0 +1,24 @@
+<!-- Featured Projects -->
+<section class="wt-section bg-primary">
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-8 text-center w-md-50 mx-auto mb-0 ">
+                <h2 class="mb-md-2">Featured Projects</h2>
+                <p></p>
+            </div>
+        </div>
+        <div class="row text-center">
+            {% for project in featureprojects %}
+            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <div class="card" style="width: 20rem;">
+                    <img src="{{project.feature_image.url}}" class="card-img-top" alt="Project Image">
+                    <div class="card-body">
+                        <h5>{{project.feature_title}}</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}        
+        </div>
+    </div>
+</section>

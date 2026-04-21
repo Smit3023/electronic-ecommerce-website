@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Projects -->
+<section class="wt-section">
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0">
+                <h2 class="mb-md-2">Projects</h2>
+                <p class="lead">Welcome to our Project Showcase! At IMMENSE Q Enggineering, we take pride in transforming spaces with our innovative lighting solutions...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Showcase -->
+    <section class="hero-large hero">
+        <div class="container">
+            {% for category, projects in project_by_category.items %}
+            <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+                <div class="col-md-11 text-center w-md-50 mx-auto mb-0">
+    
+                    <!-- Category Title -->
+                    <h2 class="mb-md-2 mb-3">{{ category.category_name }}</h2>
+    
+                    <!-- Bootstrap Carousel -->
+                    <div id="carousel-{{ forloop.counter }}" class="carousel slide" data-ride="carousel">
+                        <!-- Carousel Indicators -->
+                        <ul class="carousel-indicators">
+                            {% for project in projects %}
+                            <li data-target="#carousel-{{ forloop.parentloop.counter }}" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                            {% endfor %}
+                        </ul>
+    
+                        <!-- Carousel Items -->
+                        <div class="carousel-inner">
+                            {% for project in projects %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ project.project_image.url }}" alt="{{ project.project_title }}" class="d-block w-100">
+                                <div class="carousel-caption" style="position: absolute; left: 50%; transform: translateX(-50%); background-color: rgba(255, 255, 255, 0.7); color: #000; padding: 10px 20px; border-radius: 5px; text-align: center; width: 350px; height: 100px;">
+                                    <h5 style="margin: 0; font-size: 1.5rem; font-weight: bold; display: flex; justify-content: center; align-items: center; height: 100%;">{{ project.project_title }}</h5>
+                                    <!-- <p style="margin: 5px 0 0; font-size: 1rem;">{{ project.project_description }}</p> -->
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+    
+                        <!-- Carousel Controls -->
+                        <a class="carousel-control-prev" href="#carousel-{{ forloop.counter }}" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-{{ forloop.counter }}" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</section>
+
+{% endblock %}

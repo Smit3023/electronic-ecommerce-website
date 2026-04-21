@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5 text-center">
+  <div class="container">
+    <h1 class="display-1">404</h1>
+    <h3>Page not found</h3>
+    <p class="text-muted">The page you are looking for does not exist.</p>
+    <a href="{% url 'IndexPage' %}" class="btn btn-primary mt-3">Go Home</a>
+  </div>
+</section>
+{% endblock %}

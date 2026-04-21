@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- About Us -->
+<section class="wt-section">
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0">
+                <h2 class="mb-md-2">About Us</h2>
+                {% for about in about_content %}
+                <p class="lead">{{about.about_us_content_1}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-between align-items-center mb-5" data-aos="fade-left" data-aos-easing="linear" data-aos-delay="400">
+            <div class="col-md-7">
+                {% for about in about_content %}
+                <p class="">{{about.about_us_content_2}}</p>
+                {% endfor %}
+            </div>
+            <div class="col-md-5">
+                {% for about in about_content %}
+                <img src="{{about.about_image_1.url}}" width="90%" class="rounded-md" alt="">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center mb-5" data-aos="fade-left" data-aos-easing="linear" data-aos-delay="400">
+            <div class="col-md-5">
+                {% for about in about_content %}
+                <img src="{{about.about_image_2.url}}" width="90%" class="rounded-md" alt="">
+                {% endfor %}
+            </div>
+            <div class="col-md-7">
+                {% for about in about_content %}
+                <p class="">{{about.about_us_content_3}}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center mb-5" data-aos="fade-left" data-aos-easing="linear" data-aos-delay="400">
+            <div class="col-md-7">
+                {% for about in about_content %}
+                <p class="">{{about.about_us_content_4}}</p>
+                {% endfor %}
+            </div>
+            <div class="col-md-5">
+                {% for about in about_content %}
+                <img src="{{about.about_image_3.url}}" width="90%" class="rounded-md" alt="">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0 mt-3">
+                <h2 class="mb-md-2">Our Mission</h2>
+                {% for about in about_content %}
+                <h1 class="mb-md-2 mt-5" style="font-family: 'Open Sans', sans-serif;">{{about.our_mission_heading}}</h1>
+                <p class="lead text-muted">{{about.our_mission_content}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center text-center pb-lg-4 mb-lg-5 mb-4">
+            <div class="col-md-11 text-center w-md-50 mx-auto mb-0 mt-3">
+                <h2 class="mb-md-2">Core Values</h2>
+                <div class="row mt-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0 text-center p-5" style="background-color: black; color: white;" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="100">
+                        <div class="d-block mb-4">
+                            <div class="row mt-3">
+                                <div class="col-2 pr-3">
+                                    <img src="{% static 'images/horizontal_line.JPG' %}" alt="Line Image">
+                                </div>
+                                <div class="col-10 d-flex align-items-center">
+                                    {% for about in about_content %}
+                                    <h4 class="h5">{{about.core_value_heading_1}}</h4>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% for about in about_content %}
+                        <p class="text-muted">{{about.core_value_content_1}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="col-lg-4 mb-5 mb-lg-0 text-center p-5"  style="background-color: black; color: white;" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="100">
+                        <div class="d-block mb-4">
+                            <div class="row mt-3">
+                                <div class="col-2 pr-3">
+                                    <img src="{% static 'images/horizontal_line.JPG' %}" alt="Line Image">
+                                </div>
+                                <div class="col-10 d-flex align-items-center">
+                                    {% for about in about_content %}
+                                    <h4 class="h5">{{about.core_value_heading_2}}</h4>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% for about in about_content %}
+                        <p class="text-muted">{{about.core_value_content_2}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="col-lg-4 mb-5 mb-lg-0 text-center p-5"  style="background-color: black; color: white;" data-aos="fade-up" data-aos-easing="linear" data-aos-delay="100">
+                        <div class="d-block mb-4">
+                            <div class="row mt-3">
+                                <div class="col-2 pr-3">
+                                    <img src="{% static 'images/horizontal_line.JPG' %}" alt="Line Image">
+                                </div>
+                                <div class="col-10 d-flex align-items-center">
+                                    {% for about in about_content %}
+                                    <h4 class="h5">{{about.core_value_heading_3}}</h4>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% for about in about_content %}
+                        <p class="text-muted">{{about.core_value_content_3}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h3 class="mb-4">Search results for: <em>"{{ query }}"</em></h3>
+
+    {% if products %}
+      <h5>Products</h5>
+      <div class="row mb-4">
+        {% for p in products %}
+          <div class="col-md-3 mb-3">
+            <div class="card h-100">
+              <img src="{{ p.product_image.url }}" class="card-img-top" alt="{{ p.product_name }}">
+              <div class="card-body"><p class="card-title">{{ p.product_name }}</p></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if blogs %}
+      <h5>Blogs</h5>
+      <ul class="list-group mb-4">
+        {% for b in blogs %}
+          <li class="list-group-item">
+            <a href="{% url 'BlogArticle' b.id %}">{{ b.blog_title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if projects %}
+      <h5>Projects</h5>
+      <ul class="list-group mb-4">
+        {% for p in projects %}
+          <li class="list-group-item">{{ p.project_title }} — <span class="text-muted">{{ p.project_category }}</span></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if not products and not blogs and not projects %}
+      <p class="text-muted">No results found for "{{ query }}". Try a different keyword.</p>
+    {% endif %}
+
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mt-3">&larr; Go back</a>
+  </div>
+</section>
+{% endblock %}

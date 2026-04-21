@@ -1,0 +1,329 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  .auth-section {
+    background: #f9f9f7;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+  }
+
+  .auth-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #eceae4;
+    box-shadow: 0 4px 24px rgba(0,0,0,.07);
+    padding: 40px 40px 36px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .auth-logo {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .auth-logo-icon {
+    width: 52px;
+    height: 52px;
+    background: #1a1a18;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a18;
+    text-align: center;
+    margin-bottom: 4px;
+    letter-spacing: -.02em;
+  }
+
+  .auth-subtitle {
+    font-size: 13px;
+    color: #888780;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  /* Alerts */
+  .auth-alert {
+    padding: 12px 16px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .auth-alert.error {
+    background: #fdf0f0;
+    border: 1px solid #f5c6c6;
+    color: #c0392b;
+  }
+
+  .auth-alert.success {
+    background: #e6f4ea;
+    border: 1px solid #b8dfc4;
+    color: #1e6b38;
+  }
+
+  .auth-alert-icon {
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Form fields */
+  .field-group {
+    margin-bottom: 16px;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #5f5e5a;
+    margin-bottom: 7px;
+  }
+
+  .field-wrap {
+    position: relative;
+  }
+
+  .field-wrap input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #dddbd4;
+    border-radius: 9px;
+    font-size: 14px;
+    color: #1a1a18;
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    font-family: inherit;
+  }
+
+  .field-wrap input:focus {
+    border-color: #1a1a18;
+    box-shadow: 0 0 0 3px rgba(26,26,24,.06);
+  }
+
+  /* Field error */
+  .field-error {
+    font-size: 12px;
+    color: #e74c3c;
+    margin-top: 5px;
+    padding: 6px 10px;
+    background: #fff5f5;
+    border-radius: 6px;
+    border-left: 3px solid #e74c3c;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* Password hint */
+  .field-hint {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 5px;
+  }
+
+  /* Submit button */
+  .btn-auth {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background: #1a1a18;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition: background .2s;
+    margin-top: 22px;
+    font-family: inherit;
+  }
+
+  .btn-auth:hover {
+    background: #b8a97e;
+  }
+
+  /* Divider */
+  .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 22px 0;
+  }
+
+  .auth-divider hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #eceae4;
+    margin: 0;
+  }
+
+  .auth-divider span {
+    font-size: 12px;
+    color: #bbb;
+    white-space: nowrap;
+  }
+
+  /* Bottom link */
+  .auth-bottom {
+    text-align: center;
+    font-size: 13px;
+    color: #888780;
+    margin-top: 20px;
+  }
+
+  .auth-bottom a {
+    color: #1a1a18;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1.5px solid #1a1a18;
+    padding-bottom: 1px;
+    transition: color .2s, border-color .2s;
+  }
+
+  .auth-bottom a:hover {
+    color: #b8a97e;
+    border-color: #b8a97e;
+  }
+
+  /* Terms note */
+  .terms-note {
+    text-align: center;
+    font-size: 11px;
+    color: #bbb;
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+</style>
+
+<section class="auth-section">
+  <div class="container">
+    <div class="auth-card">
+
+      <!-- Icon -->
+      <div class="auth-logo">
+        <div class="auth-logo-icon">&#128100;</div>
+        <h2 class="auth-title">Create account</h2>
+        <p class="auth-subtitle">Join IEPL and start shopping</p>
+      </div>
+
+      <!-- Global messages -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="auth-alert {% if message.tags == 'error' %}error{% else %}success{% endif %}">
+            <span class="auth-alert-icon">{% if message.tags == 'error' %}&#9888;{% else %}&#10003;{% endif %}</span>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Register form -->
+      <form method="POST" novalidate>
+        {% csrf_token %}
+
+        <!-- Username -->
+        <div class="field-group">
+          <label>Username</label>
+          <div class="field-wrap">
+            <input type="text" name="username"
+                   placeholder="Choose a username"
+                   value="{{ form.username.value|default:'' }}"
+                   autocomplete="username" required>
+          </div>
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}
+              <div class="field-error">&#9888; {{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div class="field-group">
+          <label>Email Address</label>
+          <div class="field-wrap">
+            <input type="email" name="email"
+                   placeholder="you@example.com"
+                   value="{{ form.email.value|default:'' }}"
+                   autocomplete="email" required>
+          </div>
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+              <div class="field-error">&#9888; {{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="field-group">
+          <label>Password</label>
+          <div class="field-wrap">
+            <input type="password" name="password1"
+                   placeholder="Create a strong password"
+                   autocomplete="new-password" required>
+          </div>
+          {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+              <div class="field-error">&#9888; {{ error }}</div>
+            {% endfor %}
+          {% endif %}
+          <p class="field-hint">Min. 8 characters. Cannot be entirely numeric.</p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="field-group">
+          <label>Confirm Password</label>
+          <div class="field-wrap">
+            <input type="password" name="password2"
+                   placeholder="Repeat your password"
+                   autocomplete="new-password" required>
+          </div>
+          {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+              <div class="field-error">&#9888; {{ error }}</div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn-auth">Create My Account</button>
+
+      </form>
+
+      <div class="auth-divider">
+        <hr><span>Already have an account?</span><hr>
+      </div>
+
+      <div class="auth-bottom">
+        <a href="{% url 'login' %}">Login instead</a>
+      </div>
+
+      <p class="terms-note">
+        By creating an account you agree to our terms and conditions.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

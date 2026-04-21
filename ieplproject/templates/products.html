@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  .products-section {
+    background: #f9f9f7;
+    padding: 60px 0 80px;
+    min-height: 80vh;
+  }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b8a97e;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a18;
+    letter-spacing: -.02em;
+    margin-bottom: 4px;
+  }
+  .section-sub {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 36px;
+  }
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  .filter-tab {
+    padding: 6px 18px;
+    border-radius: 30px;
+    border: 1.5px solid #dddbd4;
+    background: #fff;
+    color: #5f5e5a;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .filter-tab:hover, .filter-tab.active {
+    background: #1a1a18;
+    border-color: #1a1a18;
+    color: #fff;
+    text-decoration: none;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eceae4;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0,0,0,.10);
+  }
+  .product-img-wrap {
+    position: relative;
+    background: #f2f1ed;
+    height: 190px;
+    overflow: hidden;
+  }
+  .product-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .product-card:hover .product-img-wrap img {
+    transform: scale(1.07);
+  }
+  .cat-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(184,169,126,0.92);
+    color: #fff;
+  }
+  .stock-dot {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  .dot-in  { background: #2ecc71; }
+  .dot-out { background: #e74c3c; }
+  .product-body {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .product-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a18;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    min-height: 36px;
+  }
+  .product-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #b8a97e;
+    margin-bottom: 14px;
+    margin-top: auto;
+  }
+  .product-price small {
+    font-size: 11px;
+    font-weight: 400;
+    color: #bbb;
+    margin-left: 2px;
+  }
+  .btn-view {
+    display: block;
+    text-align: center;
+    padding: 9px 12px;
+    border-radius: 7px;
+    background: #1a1a18;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .btn-view:hover {
+    background: #b8a97e;
+    color: #fff;
+    text-decoration: none;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 80px 0;
+    color: #aaa;
+  }
+  .empty-state h5 { color: #555; margin-bottom: 6px; }
+  .pagination .page-link {
+    border-radius: 7px !important;
+    margin: 0 3px;
+    border: 1.5px solid #dddbd4;
+    color: #1a1a18;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+  }
+  .pagination .page-item.active .page-link {
+    background: #1a1a18;
+    border-color: #1a1a18;
+    color: #fff;
+  }
+  .pagination .page-link:hover { background: #f2f1ed; }
+  @media (max-width: 576px) {
+    .section-title { font-size: 26px; }
+    .product-img-wrap { height: 150px; }
+  }
+</style>
+
+<section class="products-section">
+  <div class="container">
+
+    <div class="text-center">
+      <p class="section-label">Our Collection</p>
+      <h2 class="section-title">Lighting Products</h2>
+      <p class="section-sub">Architectural lighting solutions for every space</p>
+    </div>
+
+    <div class="filter-tabs">
+      <a href="{% url 'ProductPage' %}"
+         class="filter-tab {% if not selected_category %}active{% endif %}">All</a>
+      <a href="{% url 'ProductPage' %}?category=bulb"
+         class="filter-tab {% if selected_category == 'bulb' %}active{% endif %}">Bulbs</a>
+      <a href="{% url 'ProductPage' %}?category=panel"
+         class="filter-tab {% if selected_category == 'panel' %}active{% endif %}">Panels</a>
+      <a href="{% url 'ProductPage' %}?category=fixture"
+         class="filter-tab {% if selected_category == 'fixture' %}active{% endif %}">Fixtures</a>
+      <a href="{% url 'ProductPage' %}?category=strip"
+         class="filter-tab {% if selected_category == 'strip' %}active{% endif %}">Strip Lights</a>
+      <a href="{% url 'ProductPage' %}?category=outdoor"
+         class="filter-tab {% if selected_category == 'outdoor' %}active{% endif %}">Outdoor</a>
+      <a href="{% url 'ProductPage' %}?category=other"
+         class="filter-tab {% if selected_category == 'other' %}active{% endif %}">Other</a>
+    </div>
+
+    <div class="row">
+      {% for p in page_obj %}
+      <div class="col-lg-3 col-md-4 col-6 mb-4"
+           data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="product-card">
+
+          <div class="product-img-wrap">
+            <img src="{{ p.product_image.url }}" alt="{{ p.product_name }}">
+            <span class="cat-badge">{{ p.get_category_display }}</span>
+            {% if p.stock > 0 %}
+              <span class="stock-dot dot-in" title="In Stock"></span>
+            {% else %}
+              <span class="stock-dot dot-out" title="Out of Stock"></span>
+            {% endif %}
+          </div>
+
+          <div class="product-body">
+            <p class="product-name">{{ p.product_name }}</p>
+            <div class="product-price">
+              &#8377;{{ p.price }}<small>incl. GST</small>
+            </div>
+            <a href="{% url 'ProductDetail' p.slug %}" class="btn-view">
+              View Details
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      {% empty %}
+      <div class="col-12 empty-state">
+        <h5>No products found</h5>
+        <p>Try a different category or check back soon.</p>
+        <a href="{% url 'ProductPage' %}" class="filter-tab active mt-3 d-inline-block">
+          View All
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <div class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        </li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}
